@@ -199,7 +199,8 @@
                 adSlider.innerHTML = `
                     <div class="ad-slide-enter absolute inset-0 flex items-center">
                         <img src="${ad.img}" alt="Рекламный баннер" class="w-16 h-16 object-cover rounded-xl mr-4 flex-shrink-0 shadow-md" onerror="this.onerror=null;this.src='${ad.placeholder}';">
-                        <p class="font-semibold text-sm text-[#3A3A3A] tracking-wide truncate">${ad.text}</p>
+                        <!-- ИЗМЕНЕНИЕ: Убран класс truncate, чтобы разрешить перенос текста -->
+                        <p class="font-semibold text-sm text-[#3A3A3A] tracking-wide">${ad.text}</p>
                     </div>
                 `;
                 
