@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя Италия</title>
+    <!-- Chosen Palette: Soft Aesthetic (Cream/Beige, Muted Terracotta, Deep Olive Green, Warm Gray Text) -->
+    <!-- Application Structure Plan: A highly condensed, non-scrolling mobile-first layout (100vh). Structure: 1. Fixed Header (small logo/title for branding). 2. Main Content (Links & Reviews) is scrollable in the middle section only, fitting between the fixed header and the floating fixed footer. 3. Floating Fixed Footer (Enlarged, animated ad carousel, raised off the bottom). This structure ensures all critical, actionable information is instantly visible, prioritizing a soft, clean, and intuitive user experience. -->
+    <!-- Visualization & Content Choices: Goal: Clean, inviting aesthetic. Method: Buttons use soft, uniform color fills and subtle box shadows. The ad container is elevated and enlarged for a "floating" effect with a soft shadow. The loader uses gentle opacity transitions. Libraries: Vanilla JS for state management and carousel logic. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* 1. CUSTOM FONT FACE - ASSUMING FILE IS IN ROOT */
+        @font-face {
+            font-family: 'Benzin Medium';
+            src: url('Benzin Medium.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* 2. BASE & LAYOUT STYLES */
+        .font-benzin { 
+            font-family: 'Benzin Medium', sans-serif; 
+        }
+        .font-sans { 
+            font-family: 'Inter', sans-serif; 
+        }
+        body {
+            /* Soft background color */
+            background-color: #F5EBE0;
+            height: 100vh;
+            overflow: hidden; /* Global scroll prevention */
+        }
+        /* Muted Text Color */
+        .text-primary-dark {
+            color: #3A3A3A;
+        }
+        
+        /* 3. AESTHETIC BUTTON STYLES (Soft, clean, and responsive) */
+        .btn-trendy {
+            transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+            /* Soft, elevated shadow */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        .btn-trendy:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        /* 4. LOADER ANIMATIONS (Smooth fade only) */
+        @keyframes pulse-opacity {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        #loader-logo {
+            animation: pulse-opacity 2s infinite ease-in-out;
+        }
+
+        /* 5. AD SLIDER ANIMATIONS */
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(100%); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .ad-slide-enter {
+            animation: slideIn 0.4s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="text-primary-dark flex flex-col">
+
+    <!-- 1. LOADING SCREEN (Эстетичный и спокойный) -->
+    <div id="loader" class="fixed inset-0 z-50 flex flex-col items-center justify-center transition-opacity duration-700 ease-in-out">
+        <img id="loader-logo" src="s1.png" alt="Логотип Моя Италия" class="w-32 h-32 mb-8 rounded-full" onerror="this.onerror=null;this.src='https://placehold.co/1000x1000/F5EBE0/C7A17D?text=M.I.';">
+        <p class="text-xl font-sans font-medium text-[#C7A17D] tracking-wider">Спасибо, что зашли. Нам очень приятно!</p>
+    </div>
+
+    <!-- 2. FIXED HEADER (Закреплен, компактный) -->
+    <header id="header" class="fixed top-0 left-0 right-0 h-14 flex items-center p-3 opacity-0 transition-opacity duration-500">
+        <img src="s1.png" alt="Логотип Моя Италия" class="w-10 h-10 rounded-full mr-3" onerror="this.onerror=null;this.src='https://placehold.co/1000x1000/FFFFFF/3A3A3A?text=MI';">
+        <h1 class="font-benzin text-2xl text-primary-dark tracking-wider leading-none">МОЯ ИТАЛИЯ</h1>
+    </header>
+
+    <!-- 3. MAIN CONTENT (Прокручиваемый ТОЛЬКО в этой зоне, с отступом для рекламы) -->
+    <main id="content" class="flex-grow pt-14 pb-36 p-4 opacity-0 transition-opacity duration-500 overflow-y-scroll">
+        <div class="space-y-5">
+
+            <!-- БЛОК 1: ТЕЛЕФОН КАЧЕСТВА (Глубокий оливковый) -->
+            <section class="p-4 bg-[#4A6D5D] rounded-3xl shadow-xl text-center">
+                <h2 class="font-benzin text-xl text-white mb-2">ВОПРОСЫ О КАЧЕСТВЕ?</h2>
+                <p class="text-sm text-white/90 mb-3">Разберемся с проблемой быстрее, чем вы успели бы написать отзыв.</p>
+                <a href="tel:+79211180000" class="inline-block w-full bg-white text-[#4A6D5D] font-extrabold py-3 rounded-2xl text-lg tracking-wider btn-trendy hover:bg-gray-100">
+                    7-921-118-00-00
+                </a>
+            </section>
+
+            <!-- БЛОК 2: ОТЗЫВЫ (Приглушенный терракотовый) -->
+            <section>
+                <h2 class="font-benzin text-center text-3xl text-[#C7A17D] mb-4">ОСТАВИТЬ ОТЗЫВ</h2>
+                <div class="grid grid-cols-1 gap-3">
+                    <a href="https://yandex.ru/maps/-/CLVTBVjk" target="_blank" class="bg-[#C7A17D] text-white p-4 rounded-2xl flex items-center justify-center font-bold text-base btn-trendy">
+                        <span class="mr-3 text-xl">⭐</span> Яндекс Карты (ул. Карла Маркса д. 23)
+                    </a>
+                    <a href="https://go.2gis.com/t7Wpg" target="_blank" class="bg-[#7F8C8D] text-white p-4 rounded-2xl flex items-center justify-center font-bold text-base btn-trendy">
+                        <span class="mr-3 text-xl">💬</span> 2ГИС (ул. Карла Маркса д. 23)
+                    </a>
+                     <a href="https://yandex.ru/maps/-/CLVTFEMs" target="_blank" class="bg-[#C7A17D] text-white p-4 rounded-2xl flex items-center justify-center font-bold text-base btn-trendy">
+                        <span class="mr-3 text-xl">⭐</span> Яндекс Карты (пр-кт Октябрьский д. 12)
+                    </a>
+                     <a href="https://go.2gis.com/JWrWo" target="_blank" class="bg-[#7F8C8D] text-white p-4 rounded-2xl flex items-center justify-center font-bold text-base btn-trendy">
+                        <span class="mr-3 text-xl">💬</span> 2ГИС (пр-кт Октябрьский д. 12)
+                    </a>
+                </div>
+            </section>
+            
+            <!-- БЛОК 3: СОЦИАЛЬНЫЕ СЕТИ -->
+            <section class="mb-4">
+                 <h2 class="font-benzin text-center text-3xl text-[#C7A17D] mb-4">МЫ В СЕТИ</h2>
+                 <div class="grid grid-cols-2 gap-3">
+                    <a href="https://miawww.ru" target="_blank" class="bg-[#4A6D5D] text-white p-4 rounded-2xl flex flex-col items-center justify-center font-bold text-sm btn-trendy">
+                         <span class="mb-1 text-xl">🌐</span> САЙТ
+                    </a>
+                    <a href="https://vk.com/moyaitalia60" target="_blank" class="bg-[#7F8C8D] text-white p-4 rounded-2xl flex flex-col items-center justify-center font-bold text-sm btn-trendy">
+                        <span class="mb-1 text-xl">👥</span> VK
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 4. FLOATING FIXED FOOTER (Левитирующая реклама, увеличена) -->
+    <footer id="ad-slider-container" class="fixed bottom-6 left-4 right-4 h-28 bg-white/95 backdrop-blur-sm shadow-xl rounded-2xl z-40 p-3 flex flex-col transition-all duration-300">
+        <div id="ad-slider" class="flex-grow w-full relative overflow-hidden rounded-xl">
+            <!-- Слайды будут вставляться сюда JS -->
+        </div>
+        <div id="ad-pagination" class="flex justify-center space-x-1 mt-1">
+            <!-- Точки пагинации будут вставляться сюда JS -->
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loader = document.getElementById('loader');
+            const content = document.getElementById('content');
+            const header = document.getElementById('header');
+            
+            // Показываем контент после загрузки
+            window.setTimeout(() => {
+                loader.style.opacity = '0';
+                loader.addEventListener('transitionend', () => {
+                    loader.style.display = 'none';
+                    content.style.opacity = '1';
+                    header.style.opacity = '1';
+                });
+            }, 1500);
+
+            // --- АКЦИИ И СЛАЙДЕР ---
+            const ads = [
+                {
+                    img: 'ad1.png',
+                    placeholder: 'https://placehold.co/1000x1000/C7A17D/FFFFFF?text=Акция+1',
+                    text: 'ПИЦЦА МЕСЯЦА: Каждый месяц новая пицца со скидкой до 50%! Подробнее на нашем сайте'
+                },
+                {
+                    img: 'ad2.png',
+                    placeholder: 'https://placehold.co/1000x1000/4A6D5D/FFFFFF?text=Акция+2',
+                    text: 'КОФЕ ЗА ОТЗЫВ: Оставляй отзыв и покажи официанту, а мы кофе или чай в подарок!'
+                },
+                {
+                    img: 'ad3.png',
+                    placeholder: 'https://placehold.co/1000x1000/7F8C8D/FFFFFF?text=Акция+3',
+                    text: 'КОМБО: Эксклюзивные комбо наборы на нашем сайте!'
+                }
+            ];
+
+            let currentAdIndex = 0;
+            const adSlider = document.getElementById('ad-slider');
+            const adPagination = document.getElementById('ad-pagination');
+
+            // Создание точек пагинации
+            ads.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.classList.add('w-2', 'h-2', 'rounded-full', 'bg-gray-300', 'transition-colors', 'duration-300', 'cursor-pointer');
+                dot.dataset.index = index;
+                dot.onclick = () => {
+                    currentAdIndex = index - 1; 
+                    nextAd();
+                };
+                adPagination.appendChild(dot);
+            });
+            const dots = adPagination.querySelectorAll('div');
+
+            function updateAdDisplay() {
+                const ad = ads[currentAdIndex];
+
+                // Обновление слайда
+                adSlider.innerHTML = `
+                    <div class="ad-slide-enter absolute inset-0 flex items-center">
+                        <img src="${ad.img}" alt="Рекламный баннер" class="w-16 h-16 object-cover rounded-xl mr-4 flex-shrink-0 shadow-md" onerror="this.onerror=null;this.src='${ad.placeholder}';">
+                        <p class="font-semibold text-sm text-[#3A3A3A] tracking-wide truncate">${ad.text}</p>
+                    </div>
+                `;
+                
+                // Обновление пагинации (Активный цвет - Терракотовый)
+                dots.forEach(dot => {
+                    dot.classList.remove('bg-[#C7A17D]');
+                    dot.classList.add('bg-gray-300');
+                });
+                dots[currentAdIndex].classList.remove('bg-gray-300');
+                dots[currentAdIndex].classList.add('bg-[#C7A17D]'); 
+            }
+
+            function nextAd() {
+                currentAdIndex = (currentAdIndex + 1) % ads.length;
+                updateAdDisplay();
+            }
+            
+            updateAdDisplay();
+            setInterval(nextAd, 5000); // Автоматическая смена каждые 5 секунд
+        });
+    </script>
+</body>
+</html>
